@@ -3,25 +3,36 @@ if exists('g:loaded_feeling_move')
 endif
 let g:loaded_feeling_move = v:true
 
-nnoremap <Plug>(feeling_move_up)              :<C-u>call <SID>move('up', v:false)<CR>
-nnoremap <Plug>(feeling_move_up_half)         :<C-u>call <SID>move('up', v:true)<CR>
-nnoremap <Plug>(feeling_move_down)            :<C-u>call <SID>move('down', v:false)<CR>
-nnoremap <Plug>(feeling_move_down_half)       :<C-u>call <SID>move('down', v:true)<CR>
-nnoremap <Plug>(feeling_move_left)            :<C-u>call <SID>move('left', v:false)<CR>
-nnoremap <Plug>(feeling_move_left_half)       :<C-u>call <SID>move('left', v:true)<CR>
-nnoremap <Plug>(feeling_move_right)           :<C-u>call <SID>move('right', v:false)<CR>
-nnoremap <Plug>(feeling_move_right_half)      :<C-u>call <SID>move('right', v:true)<CR>
-nnoremap <Plug>(feeling_move_up_left)         :<C-u>call <SID>move('up_left', v:false)<CR>
-nnoremap <Plug>(feeling_move_up_left_half)    :<C-u>call <SID>move('up_left', v:true)<CR>
-nnoremap <Plug>(feeling_move_up_right)        :<C-u>call <SID>move('up_right', v:false)<CR>
-nnoremap <Plug>(feeling_move_up_right_half)   :<C-u>call <SID>move('up_right', v:true)<CR>
-nnoremap <Plug>(feeling_move_down_left)       :<C-u>call <SID>move('down_left', v:false)<CR>
-nnoremap <Plug>(feeling_move_down_left_half)  :<C-u>call <SID>move('down_left', v:true)<CR>
-nnoremap <Plug>(feeling_move_down_right)      :<C-u>call <SID>move('down_right', v:false)<CR>
-nnoremap <Plug>(feeling_move_down_right_half) :<C-u>call <SID>move('down_right', v:true)<CR>
+nnoremap <expr> <Plug>(feeling_move_up)              feeling_move#move('up', v:false)
+nnoremap <expr> <Plug>(feeling_move_up_half)         feeling_move#move('up', v:true)
+nnoremap <expr> <Plug>(feeling_move_down)            feeling_move#move('down', v:false)
+nnoremap <expr> <Plug>(feeling_move_down_half)       feeling_move#move('down', v:true)
+nnoremap <expr> <Plug>(feeling_move_left)            feeling_move#move('left', v:false)
+nnoremap <expr> <Plug>(feeling_move_left_half)       feeling_move#move('left', v:true)
+nnoremap <expr> <Plug>(feeling_move_right)           feeling_move#move('right', v:false)
+nnoremap <expr> <Plug>(feeling_move_right_half)      feeling_move#move('right', v:true)
+nnoremap <expr> <Plug>(feeling_move_up_left)         feeling_move#move('up_left', v:false)
+nnoremap <expr> <Plug>(feeling_move_up_left_half)    feeling_move#move('up_left', v:true)
+nnoremap <expr> <Plug>(feeling_move_up_right)        feeling_move#move('up_right', v:false)
+nnoremap <expr> <Plug>(feeling_move_up_right_half)   feeling_move#move('up_right', v:true)
+nnoremap <expr> <Plug>(feeling_move_down_left)       feeling_move#move('down_left', v:false)
+nnoremap <expr> <Plug>(feeling_move_down_left_half)  feeling_move#move('down_left', v:true)
+nnoremap <expr> <Plug>(feeling_move_down_right)      feeling_move#move('down_right', v:false)
+nnoremap <expr> <Plug>(feeling_move_down_right_half) feeling_move#move('down_right', v:true)
 
-function! s:move(direction, is_half)
-  let pos = feeling_move#get_pos(a:direction, a:is_half)
-  call cursor(pos[0], pos[1])
-endfunction
-
+vnoremap <expr> <Plug>(feeling_move_up)              feeling_move#move('up', v:false)
+vnoremap <expr> <Plug>(feeling_move_up_half)         feeling_move#move('up', v:true)
+vnoremap <expr> <Plug>(feeling_move_down)            feeling_move#move('down', v:false)
+vnoremap <expr> <Plug>(feeling_move_down_half)       feeling_move#move('down', v:true)
+vnoremap <expr> <Plug>(feeling_move_left)            feeling_move#move('left', v:false)
+vnoremap <expr> <Plug>(feeling_move_left_half)       feeling_move#move('left', v:true)
+vnoremap <expr> <Plug>(feeling_move_right)           feeling_move#move('right', v:false)
+vnoremap <expr> <Plug>(feeling_move_right_half)      feeling_move#move('right', v:true)
+vnoremap <expr> <Plug>(feeling_move_up_left)         feeling_move#move('up_left', v:false)
+vnoremap <expr> <Plug>(feeling_move_up_left_half)    feeling_move#move('up_left', v:true)
+vnoremap <expr> <Plug>(feeling_move_up_right)        feeling_move#move('up_right', v:false)
+vnoremap <expr> <Plug>(feeling_move_up_right_half)   feeling_move#move('up_right', v:true)
+vnoremap <expr> <Plug>(feeling_move_down_left)       feeling_move#move('down_left', v:false)
+vnoremap <expr> <Plug>(feeling_move_down_left_half)  feeling_move#move('down_left', v:true)
+vnoremap <expr> <Plug>(feeling_move_down_right)      feeling_move#move('down_right', v:false)
+vnoremap <expr> <Plug>(feeling_move_down_right_half) feeling_move#move('down_right', v:true)

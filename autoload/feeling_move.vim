@@ -1,26 +1,36 @@
-let g:feeling_move = get(g:, 'feeling_move', {})
-let g:feeling_move#config = get(g:feeling_move, 'config', {
+let g:feeling_move#config = get(g:, 'feeling_move#config', {
       \   'offset_line': 10,
       \   'offset_col': 10
       \ })
 
-"
-" direction:
-"   - 'up'
-"   - 'down'
-"   - 'left'
-"   - 'right'
-"   - 'up_left'
-"   - 'up_right'
-"   - 'down_left'
-"   - 'down_right'
-"
-function! feeling_move#get_pos(direction, is_half)
+function! feeling_move#move(direction, is_half)
+  let prevpos = getcurpos()
+  let nextpos = feeling_move#get_pos(prevpos, a:direction, a:is_half)
+
+  let [prev_bufnr, prev_line, prev_col, prev_off, curswant] = prevpos
+  let prev_col = prev_col + prev_off
+  let [next_line, next_col] = nextpos
+
+  let motions = []
+  if next_col < prev_col
+    call add(motions, printf('%sh', prev_col - next_col))
+  elseif prev_col < next_col
+    call add(motions, printf('%sl', next_col - prev_col))
+  endif
+  if next_line < prev_line
+    call add(motions, printf('%sk', prev_line - next_line))
+  elseif prev_line < next_line
+    call add(motions, printf('%sj', next_line - prev_line))
+  endif
+  return join(motions, '')
+endfunction
+
+function! feeling_move#get_pos(curpos, direction, is_half)
   let is_half = get(a:000, 0)
   let offset_line = g:feeling_move#config.offset_line * (is_half ? 0.5 : 1)
   let offset_col = g:feeling_move#config.offset_col * (is_half ? 0.5 : 1)
 
-  let [bufnr, lnum, col, off] = getpos('.')
+  let [bufnr, lnum, col, off, curswant] = a:curpos
 
   let col = col + off " for virtualedit
 
@@ -47,6 +57,7 @@ function! feeling_move#get_pos(direction, is_half)
         \ min([line('$'), max([1, float2nr(pos[0])])]),
         \ max([1, float2nr(pos[1])])
         \ ]
+
   return pos
 endfunction
 
